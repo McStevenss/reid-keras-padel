@@ -14,9 +14,11 @@ def update_summary(epoch, train_metrics, eval_metrics, filename, write_header=Fa
         dw.writerow(rowd)
         
 def save_network(network, epoch_label, name):
-    save_filename = 'net_%s.pth'% "best"
+    # save_filename = 'net_%s.pth'% "best"
+    # changed to save unique name. To save each epoch and now overwrite previous ones
+    save_filename = 'net_epoch_%s.pth'% epoch_label
     save_path = os.path.join('./model',name,save_filename)
-    torch.save(network.cpu().state_dict(), save_path)
+    torch.save(network.cpu().state_dict(), save_path) 
     
     if torch.cuda.is_available():
         network.cuda()
